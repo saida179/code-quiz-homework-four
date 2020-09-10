@@ -1,102 +1,109 @@
 //# 04 Web APIs: Code Quiz
+const startButton = document.querySelector('#start-btn');
+const questionContainer = document.querySelector ('#question');
+const quizContainer = document.querySelector('#quiz');
+const resultsContainer = document.querySelector('#results');
+const submitButton = document.querySelector('#submit');
+const timerLeft = document.querySelector('#timer');
 
-//As you proceed in your career as a web developer, 
-//you will probably be asked to complete a coding assessment,
-// which is typically a combination of multiple-choice questions and interactive challenges. 
-//Build a timed code quiz with multiple-choice questions. This app will run in the browser and feature dynamically 
-//updated HTML and CSS powered by your JavaScript code. It will also feature a clean and polished user interface 
-//and be responsive, ensuring that it adapts to multiple screen sizes.
+let answer1 = document.querySelector('#a');
+let answer2 = document.querySelector('#b');
+let answer3 = document.querySelector('#c');
+let answer4 = document.querySelector('#d');
 
-//## User Story
-
-//```
-//AS A coding bootcamp student
-//I WANT to take a timed quiz on JavaScript fundamentals that stores high scores
-//SO THAT I can gauge my progress compared to my peers
-//```
-
-//## Acceptance Criteria
-
-//```
-//GIVEN I am taking a code quiz
 function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
+    startButton.addEventListener('click', generateQuiz);
+    console.log ('started')
+
+//functions
+function countDown(){
+    setInterval(function() {
+        if (timeLeft <=0){
+            clearInterval(timeLeft = 0)
+        }
+        timeLeftDisplay.innerHTML = timeLeft 
+        timeLeft -=1
+
+    }, 1000)
+}
+
+function start(){
+
+}
 
 	function showQuestions(questions, quizContainer){
-        // we'll need a place to store the output and the answer choices
-	var output = [];
-	var answers;
+	let output = [];
+	let answers;
 
-	// for each question...
-	for(var i=0; i<questions.length; i++){
-		
-		// first reset the list of answers
-		answers = [];
+	for(let i=0; i<questions.length; i++){
+		answers = ["d,c,a,a,a,d,b,b,d,c"];
 
 		// for each available answer to this question...
 		for(letter in questions[i].answers){
-
-			// ...add an html radio button
-			answers.push(
-				'<label>'
-					+ '<input type="radio" name="question'+i+'" value="'+letter+'">'
-					+ letter + ': '
-					+ questions[i].answers[letter]
-				+ '</label>'
-			);
-		}
-
-		// add this question and its answers to the output
-		output.push(
-			'<div class="question">' + questions[i].question + '</div>'
-			+ '<div class="answers">' + answers.join('') + '</div>'
-		);
+            let answer1 = document.querySelector('#a');
+            let answer2 = document.querySelector('#b');
+            let answer3 = document.querySelector('#c');
+            let answer4 = document.querySelector('#d');
+        }
 	}
 
-	// finally combine our output list into one string of html and put it on the page
 	quizContainer.innerHTML = output.join('');
 
 	}
 
 	function showResults(questions, quizContainer, resultsContainer){
-        // gather answer containers from our quiz
-	var answerContainers = quizContainer.querySelectorAll('.answers');
+	let answerContainers = quizContainer.querySelectorAll('.answers');
 	
-	// keep track of user's answers
-	var userAnswer = '';
-	var numCorrect = 0;
+	let userAnswer = 'a,b,c,d';
+	let numCorrect = 0;
 	
-	// for each question...
-	for(var i=0; i<questions.length; i++){
 
-		// find selected answer
+	for(let i=0; i<questions.length; i++){
 		userAnswer = (answerContainers[i].querySelector('input[name=question'+i+']:checked')||{}).value;
 		
-		// if answer is correct
-		if(userAnswer===questions[i].correctAnswer){
-			// add to the number of correct answers
+		if(userAnswer===questions1[i].correctAnswer){
+            console.log(answers[0])
 			numCorrect++;
-			
-			// color the answers green
-			answerContainers[i].style.color = 'lightgreen';
 		}
-		// if answer is wrong or blank
-		else{
-			// color the answers red
-			answerContainers[i].style.color = 'red';
+		else (userAnswer===questions1[i].incorrectAnswer) {
+            message = 'incorrectAnswer';
+        }
+        if(userAnswer===questions2[i].correctAnswer){
+            console.log(answers[1])
+			numCorrect++;
 		}
+		else (userAnswer===questions2[i].incorrectAnswer) {
+            message = 'incorrectAnswer';
+        }
+        if(userAnswer===questions3[i].correctAnswer){
+            console.log(answers[2])
+			numCorrect++;
+		}
+		else (userAnswer===questions3[i].incorrectAnswer) {
+            message = 'incorrectAnswer';
+        }
+        if(userAnswer===questions4[i].correctAnswer){
+            console.log(answers[3])
+			numCorrect++;
+		}
+		else (userAnswer===questions4[i].incorrectAnswer) {
+            message = 'incorrectAnswer';
+        }
+        
 	}
 
 	// show number of correct answers out of total
-	resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
+    resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
+    
 
 	}
 
-	// show the questions
+
     showQuestions(questions, quizContainer);
     
-    const myQuestions = [
+    let myQuestions = [
         {
-            question: "1. Who would you usually hear making a prophecy?:",
+            question1: "1. Who would you usually hear making a prophecy?:",
             answers: {
                 a: 'A Sage',
                 b: 'A Predicator',
@@ -106,7 +113,7 @@ function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
             correctAnswer: 'd'
         },
         {
-            question: "2. What was the name of Sybil Trelawney's famous Seer relative?",
+            question2: "2. What was the name of Sybil Trelawney's famous Seer relative?",
             answers: {
                 a: 'Caitlin',
                 b: 'Roberta',
@@ -116,7 +123,7 @@ function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
             correctAnswer: 'c'
         },
         {
-            question: "3. Who witnessed Sybil Trelawney making the whole prophecy that was responsible for Lord Voldemort hunting down the Potters?",
+            question3: "3. Who witnessed Sybil Trelawney making the whole prophecy that was responsible for Lord Voldemort hunting down the Potters?",
             answers: {
                 a: 'Albus Dumbledore',
                 b: 'Horace Slughorn',
@@ -126,7 +133,7 @@ function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
             correctAnswer: 'a'
         },
         {
-            question: "4. Who overheard some of the prophecy in question 3 being made in the Hog's head?",
+            question4: "4. Who overheard some of the prophecy in question 3 being made in the Hog's head?",
             answers: {
                 a: 'Severus Snape',
                 b: 'Peter Pettigrew',
@@ -137,7 +144,7 @@ function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
             
         },
         {
-            question: "5. Complete this line of Trelawney's prophecy:Born to those who have thrice defied him, born as the?",
+            question5: "5. Complete this line of Trelawney's prophecy:Born to those who have thrice defied him, born as the?",
             answers: {
                 a: 'Seventh month dies',
                 b: 'eighth month dies',
@@ -148,7 +155,7 @@ function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
             
 		},
 		{
-            question: "6. The word of the prophecy in the previous question could have applied to another wizard boy. Who was it?",
+            question6: "6. The word of the prophecy in the previous question could have applied to another wizard boy. Who was it?",
             answers: {
                 a: 'Ron Weasley',
                 b: 'Alexander Bones',
@@ -159,7 +166,7 @@ function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
             
 		},
 		{
-            question: "7. Which of these match Professor Trelawney's intials on the label with the prophecy she made about the one with the power tp vanquish the Dark Lord?",
+            question7: "7. Which of these match Professor Trelawney's intials on the label with the prophecy she made about the one with the power tp vanquish the Dark Lord?",
             answers: {
                 a: 'S.C.T',
                 b: 'S.P.T',
@@ -170,36 +177,36 @@ function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
             
 		},
 		{
-            question: "8. who witnessed the prophecy sybil Trelawney made in Harry Potter and the Prisoner of Azkaban?",
+            question8: "8. who witnessed the prophecy sybil Trelawney made in Harry Potter and the Prisoner of Azkaban?",
             answers: {
-                a: 'Harry Po',
-                b: 'Peter Pettigrew',
-                c: 'Bellatrix Lestrangr',
-                d: 'Lord Voldemort'
+                a: 'Harry Potter',
+                b: 'Sirius Black ',
+                c: 'Lavender Brown',
+                d: 'Ron Weasley'
             },
-            correctAnswer: 'a'
+            correctAnswer: 'b'
             
 		},
 		{
-            question: "9. ?",
+            question9: "9. When did Sybil Trelawney make a prophecy during Harry's third year at Hogwarts?",
             answers: {
-                a: 'Severus Snape',
-                b: 'Peter Pettigrew',
-                c: 'Bellatrix Lestrangr',
-                d: 'Lord Voldemort'
+                a: 'During Harrys first Divination lesson',
+                b: 'At Christmas Dinner in the Great Hall',
+                c: 'In the hospital wing',
+                d: 'During Harrys Divination exam'
             },
-            correctAnswer: 'a'
+            correctAnswer: 'd'
             
 		},
 		{
-            question: "10. ?",
+            question10: "10. Who was the Dark Lord's servant who had 'been chained these twelve years' according to trelawney's prophecy??",
             answers: {
-                a: 'Severus Snape',
-                b: 'Peter Pettigrew',
-                c: 'Bellatrix Lestrangr',
-                d: 'Lord Voldemort'
+                a: 'Pete Pettigrew',
+                b: 'Barty Crouch junior',
+                c: 'Severus Snape',
+                d: 'Sirius Black'
             },
-            correctAnswer: 'a'
+            correctAnswer: 'c'
             
 		}
 
@@ -210,18 +217,3 @@ function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
 		showResults(questions, quizContainer, resultsContainer);
 	}
 }
-//WHEN I click the start button
-//THEN a timer starts and I am presented with a question
-//WHEN I answer a question
-//THEN I am presented with another question
-//WHEN I answer a question incorrectly
-//THEN time is subtracted from the clock
-//WHEN all questions are answered or the timer reaches 0
-//THEN the game is over
-//WHEN the game is over
-//THEN I can save my initials and score
-//```
-
-//The following animation demonstrates the application functionality:
-
-//![code quiz](./Assets/04-web-apis-homework-demo.gif)
